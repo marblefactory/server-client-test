@@ -57,10 +57,11 @@ bool Client::stopClient(){
 void Client::listen(){
     while(isConnected){
         try {
+            Logging::logDebug(__LINE__, "Listening for message");
             std::string message;
-            int message_length = parseHeader(&message);
+            int message_length = parseHeader(&message);§
             readMessage(message_length, &message);
-            std::cout << message << std::endl;
+            std::cout << message << std::endl;§
         }
         catch(boost::system::system_error& e){
             boost::system::error_code errc = e.code();
