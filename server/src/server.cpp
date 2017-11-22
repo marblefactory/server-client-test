@@ -6,20 +6,6 @@
 using std::cout;
 using std::endl;
 
-// // A sychronous TCP server, this is fine since we only have one client suppling
-// // JSON actions.
-// class Server {
-// private:
-//     // Used to accept connections from clients.
-//     tcp::acceptor *acceptor;
-//
-// public:
-//     Server();
-//
-//     // Listen to connections from clients, and read the message they send.
-//     void start_accept();
-// };
-
 // Create a server listening on the specified port for connections, for
 // IP version 4.
 Server::Server(boost::asio::io_service &io_service, int port):
