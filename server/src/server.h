@@ -1,8 +1,7 @@
+#include <boost/asio.hpp>
 
 #ifndef server_h
 #define server_h
-
-#include <boost/asio.hpp>
 
 using boost::asio::ip::tcp;
 
