@@ -1,25 +1,12 @@
 import socket
 
+def client():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(('127.0.0.1', 1024))
 
-class Connect(object):
-    sock: socket
+    sock.sendall("Hello".encode())
+    sock.sendall("Another message".encode())
 
-    def connect(self):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print('Connecting to server')
-        sock.connect(('127.0.0.1', 1024))
-        return sock
+    sock.close()
 
-    def send(self, message: str):
-        sock = self.connect()
-
-        print('sending: ' + message)
-        sock.sendall(message.encode())
-
-        sock.close()
-
-
-connect = Connect()
-
-connect.send("Hello World")
-connect.send("Another message")
+client()

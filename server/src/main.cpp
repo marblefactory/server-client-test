@@ -13,7 +13,7 @@ void run_server(string msg) {
         boost::asio::io_service io_service;
         Server server(io_service, 1024);
 
-        server.start_accepts();
+        server.accept_client();
     }
     catch (std::exception& e) {
         cerr << e.what() << endl;
