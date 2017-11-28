@@ -2,6 +2,8 @@
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
 #include <iostream>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 
 using std::cout;
 using std::endl;
@@ -21,7 +23,9 @@ Server::Server(boost::asio::io_service &io_service, int port):
 void Server::accept_client() throw(boost::system::system_error) {
     while (true) {
         acceptor.accept(client_socket);
+
         cout << "Client connected" << endl;
+
         is_client_connected = true;
         listen_to_client();
     }
@@ -37,7 +41,8 @@ void Server::listen_to_client() throw(boost::system::system_error) {
         size_t len = client_socket.read_some(boost::asio::buffer(buf), error);
 
         if (error == boost::asio::error::eof) {
-            cout << "Client closed socket" << endl;
+            cout << "Client Socket Closed" << endl;
+
             // Connection closed cleanly by peer.
             is_client_connected = false;
             client_socket.close();
@@ -49,9 +54,20 @@ void Server::listen_to_client() throw(boost::system::system_error) {
         }
         else {
             // Use the recieved message.
-            cout << "\tREAD: ";
-            cout.write(&buf[0], len);
-            cout << endl;
+            string str(buf.begin(), len);
+
+            // The full message may contain multiple messages as they become combined since
+            // we are using TCP. This splits the messages on the '$' delimiter and returns
+            // all the messages.
+            vector<string> messages;
+            split(messages, str, boost::is_any_of("$"));
+
+            // TODO: Send messages
+            for(auto& s: messages) {
+                if (s != ""){
+                    cout << "\t" << s << endl;
+                }
+            }
         }
     }
 }

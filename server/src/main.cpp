@@ -34,7 +34,7 @@ int main() {
 
     // Makes the main thread wait for the new thread to finish execution, therefore blocks its own execution.
     server_thread.join();
-    game_thread.join();
+    //game_thread.join();
 
     return 0;
 }

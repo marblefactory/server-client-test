@@ -4,6 +4,7 @@
 #define server_h
 
 using boost::asio::ip::tcp;
+using namespace std;
 
 // TODO: Put this in the class
 // The maximum size, in bytes, of a message that can be read.
